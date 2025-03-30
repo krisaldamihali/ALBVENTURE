@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Albania: Maze Adventure</title>
+  <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="body">
+          <!--navbar-->
+          <nav class="navbar glass" style="height: 70px">
+            <span
+                ><a href="#home" style="display: flex; align-items: center"
+                    ><img
+                        class="img2"
+                        src="./img/mountain.png"
+                        width="40"
+                        style="margin: -25px -10px -25px -20px"
+                    />
+                    <h1 class="logo">&nbsp;AlbVenture</h1></a
+                ></span
+            >
+            <ul class="nav-links">
+                <li>
+                    <a href="index.html#home" id="pri" class="active cir_border">Home</a>
+                </li>
+                <li><a href="index.html#activities" id="sec" class="cir_border">Activities</a></li>
+                <li>
+                    <a href="index.html#explore" id="tri" class="cir_border">Explore</a>
+                </li>
+                <li>
+                    <a href="index.html#tours" id="quad" class="cir_border">Landmarks</a>
+                </li>
+                <li><a href="index.html#about" id="quint" class="cir_border">Gallery</a></li>
+                <li>
+                    <a href="index.html#reviews" id="hex" class="cir_border">Reviews</a>
+                </li>
+                <li>
+                    <a href="index.html#contact" id="hept" class="cir_border">Contact</a>
+                </li>
+                <li>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="checkbox dark"
+                            id="checkbox"
+                        />
+                        <label for="checkbox" class="label">
+                            <i class="fa fa-moon-o"></i>
+                            <i class="fa fa-sun-o"></i>
+                            <div class="ball"></div>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <img src="./img/menu-btn.png" alt="" class="menu-btn" />
+        </nav>
+        <!--navbar--> 
+
+        <header class="game-header">
+          <div class="game-header-content">
+            <h1>Explore Albania: Maze Adventure</h1>
+            <p>Use arrow keys (or touch) to move…</p>
+          </div>
+        </header>
+        
+  
+  <div class="container">
+    <section class="game-screen-container">
+      <canvas class="game-screen" id="mazeCanvas" width="800" height="600"></canvas>
+    </section>
+    
+    <section class="movement-btns-container">
+      <div class="movement-btn-row">
+        <button id="up" class="movement-btn movement-btn--up">▲</button>
+      </div>
+      <div class="movement-btn-row">
+        <button id="left" class="movement-btn movement-btn--left">◀</button>
+        <button id="down" class="movement-btn movement-btn--down">▼</button>
+        <button id="right" class="movement-btn movement-btn--right">▶</button>
+      </div>
+    </section>
+
+    <section class="game-stats-container">
+      <p class="a-game-stat">Heals: <span class="a-game-stat--lives" id="lives"></span></p>
+      <p class="a-game-stat">Time: ⌛ <span class="a-game-stat--time" id="time"></span></p>
+      <p class="a-game-stat">Record: 🏁 <span class="a-game-stat--record" id="record"></span></p>
+    </section>
+  </div>
+
+  <section id="quizBox" class="hidden">
+    <h2 id="cityName"></h2>
+    <p id="cityFact"></p>
+    <p id="quizQuestion"></p>
+    <button id="showAnswerBtn">Show Answer</button>
+    <p id="quizAnswer" class="hidden"></p>
+    <button id="closeQuizBtn">Close</button>
+  </section>
+  
+  <footer>
+    <p class="footer-text">Play for fun</p>
+  </footer>
+   
+  <script src="js/game.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="js/script.js" defer></script>
+
+</body>
+</html>

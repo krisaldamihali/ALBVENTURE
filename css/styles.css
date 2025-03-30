@@ -1,0 +1,216 @@
+/* General Styles */
+:root {
+    --app-color: rgb(0, 0, 0);
+    --game-border:#fc036b;
+    --screen-color: #000000;
+    --btns-color: #fc036b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: var(--app-color);
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+
+body.body section {
+    margin: 20px auto;
+    padding-top: 20px;
+    min-height: auto;
+  }
+
+/* Header & Footer */
+.game-header {
+    position: relative;
+    padding: 80px 20px;
+    height: auto;
+    text-align: center;
+    background-color: #000; /* optional */
+  }
+
+.game-header {
+margin-top: 100px;
+padding: 20px;
+text-align: center;
+background-color: #000;
+color: white;
+}
+
+.game-header-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.game-header-content p {
+margin-top: 10px;
+font-size: 1rem;
+color: #fc036b;
+}
+
+
+header, footer {
+    background-color: var(--screen-color);
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+header p, footer .footer-text {
+    font-size: 16px;
+    color: #fc036b;
+    font-weight: 600;
+}
+
+/* Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    padding-top: 20px;
+}
+
+/* Game Screen */
+.game-screen-container {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+.game-screen {
+    border-radius: 8px;
+    background-color: var(--screen-color);
+    border: 4px solid var(--game-border);
+}
+
+/* Movement Buttons */
+.movement-btns-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+.movement-btn-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.movement-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 40px;
+    font-size: 16px;
+    background: var(--btns-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.movement-btn:hover {
+    opacity: 0.9;
+}
+
+/* Game Stats */
+.game-stats-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 15px 0;
+}
+.a-game-stat {
+    width: 100%;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Quiz Box Styling */
+/* Quiz Box Styling */
+#quizBox {
+    display: inline-block;
+    text-align: left;
+    width: 350px;
+    padding: 20px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #fc036b, blue); /* Subtle gradient */
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    color: #ffffff;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: 0.3s ease-in-out;
+}
+
+/* Add hover effect */
+#quizBox:hover {
+    box-shadow: 6px 6px 12px #fc036b;
+    transform: scale(1.02);
+}
+
+/* Title inside the quiz box */
+#quizBox h2 {
+    font-size: 18px;
+    color: hsl(0, 0%, 100%);
+    margin-bottom: 10px;
+}
+
+/* Quiz options styling */
+#quizBox label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+/* Styling for the submit button */
+#quizBox button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+#quizBox button:hover {
+    background: #45a049;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (min-height: 600px) {
+    header h1 {
+        font-size: 24px;
+    }
+    .movement-btn {
+        font-size: 3vh;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .game-header {
+      padding: 90px 15px 30px;
+    }
+  }
+  
