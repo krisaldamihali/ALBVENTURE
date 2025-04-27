@@ -14,7 +14,7 @@
         <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="img/apple-touch-icon.png"
+            href="img/logo.png"
         />
         <link
             rel="icon"
@@ -39,7 +39,7 @@
                 ><a href="#home" style="display: flex; align-items: center"
                     ><img
                         class="img2"
-                        src="./img/mountain.png"
+                        src="./img/logo.png"
                         width="40"
                         style="margin: -25px -10px -25px -20px"
                     />
@@ -64,6 +64,103 @@
                 <li>
                     <a href="#contact" id="hept" class="cir_border">Contact</a>
                 </li>
+                
+
+                <li>
+                  <button id="voiceToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+                      🔊
+                  </button>
+                </li>
+                
+                <!-- Speech Recognition Button -->
+                <li>
+                    <button id="micToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+                        🎤
+                    </button>
+                </li>
+                
+                <!-- Scripts at the bottom -->
+                <script>
+                  // Text-to-Speech
+                  let isSpeaking = false;
+                  let synth = window.speechSynthesis;
+                  let utterance = null;
+                
+                  document.getElementById('voiceToggle').addEventListener('click', () => {
+                      if (!isSpeaking) {
+                          const text = document.body.innerText;
+                          utterance = new SpeechSynthesisUtterance(text);
+                          synth.speak(utterance);
+                          isSpeaking = true;
+                      } else {
+                          synth.cancel();
+                          isSpeaking = false;
+                      }
+                  });
+                
+                  // Speech Recognition
+                  let isListening = false;
+                  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                  const recognition = new SpeechRecognition();
+                  recognition.lang = 'en-US';
+                  recognition.continuous = true; // Keeps recognition active until manually stopped
+                  recognition.interimResults = true; // Optional: shows interim results as user speaks
+                
+                  document.getElementById('micToggle').addEventListener('click', () => {
+                      if (!isListening) {
+                          // Start listening
+                          recognition.start();
+                          isListening = true;
+                          document.getElementById('micToggle').textContent = '🛑'; // Change the mic icon to stop
+                      }
+                  });
+                
+                  recognition.onresult = function(event) {
+                      const speechResult = event.results[event.results.length - 1][0].transcript.toLowerCase();
+                      console.log('You said:', speechResult);
+                
+                      if (speechResult.includes('home')) {
+                          window.location.hash = '#home';
+                      } else if (speechResult.includes('activities')) {
+                          window.location.hash = '#activities';
+                      } else if (speechResult.includes('explore')) {
+                          window.location.hash = '#explore';
+                      } else if (speechResult.includes('landmarks')) {
+                          window.location.hash = '#tours';
+                      } else if (speechResult.includes('gallery')) {
+                          window.location.hash = '#about';
+                      } else if (speechResult.includes('reviews')) {
+                          window.location.hash = '#reviews';
+                      } else if (speechResult.includes('contact')) {
+                          window.location.hash = '#contact';
+                      }
+                      else if (speechResult.includes('start exploring')) {
+                        window.location.href = 'explore.html';
+                      } 
+                      else if (speechResult.includes('discover cities')) {
+                        window.location.hash = '#about';
+                      } else if (speechResult.includes('learn more')) {
+                      window.location.href = 'explore.html';
+                      } else if (speechResult.includes('play')) {
+                        window.location.href = 'game.html';
+                      } 
+                     
+                      // No alert here in case of invalid input, just do nothing
+                  };
+                
+                  recognition.onerror = function(event) {
+                      console.error('Speech recognition error', event.error);
+                  };
+                
+                  // Stop listening manually when user presses micToggle again
+                  document.getElementById('micToggle').addEventListener('dblclick', () => {
+                      recognition.stop();
+                      isListening = false;
+                      document.getElementById('micToggle').textContent = '🎤'; // Reset the mic icon
+                  });
+                </script>
+              
+
                 <li>
                     <div>
                         <input
@@ -95,12 +192,12 @@
               <h2 id="quote">Explore the Magical Albania</h2>
               <div class="line"></div>
               <h1>A WONDERFUL GIFT</h1>
-              <a href="#about" class="ctn" onclick='removeall(); $("#quad").css("border", "2px solid whitesmoke"); $("#quad").css("border-radius", "20px");'>Learn more</a>
+              <a href="#about" class="ctn" onclick='removeall(); $("#quad").css("border", "2px solid whitesmoke"); $("#quad").css("border-radius", "20px");'>Discover Cities</a>
             </div>
           </header>
           
 
-        <!--Events-->
+        <!--Activities-->
         <section class="events" id="activities">
             <div class="container">
                 <div class="title">
@@ -176,7 +273,7 @@
                   </div>                  
             </div>
         </section>
-        <!--Events-->
+        <!--Activities-->
 
         <!--Explore-->
         <section class="explore" id="explore" style="background-image: url('img/explore.jpg');">
@@ -194,7 +291,7 @@
           </section>          
         <!--Explore-->
 
-        <!--tours-->
+        <!--Landmarks-->
         <section class="tours" id="tours">
             <div class="container row row-tours">
                 <div class="col content-col">
@@ -203,7 +300,7 @@
                     <p>
                     Albania is home to a rich blend of ancient history and breathtaking natural beauty. From ancient castles perched on hilltops to vibrant cultural landmarks, every corner of the country tells a story. Whether you're wandering through archaeological ruins or standing in awe before centuries-old architecture, these landmarks are must-see highlights for any traveler.
                     </p>
-                    <a href="#" class="ctn">Learn more</a>
+                    <a href="explore.html" class="ctn">Learn More</a>
                 </div>
                 <div class="image-col">
                     <div class="image-gallery">
@@ -250,9 +347,9 @@
             </div>
             <br /><br /><br /><br />
         </section>
-        <!--tours-->
+        <!--Landmarks-->
 
-        <!-- About -->
+        <!--Gallery-->
         <section id="about">
             <div class="title">
               <h1 class="font-color">Gallery</h1>
@@ -260,90 +357,91 @@
             </div>
             <br />
             <div id="about_us">
-              <div class="boxx">
-                <div class="containerx">
-                  <input type="radio" name="slider" id="item-1" checked />
-                  <input type="radio" name="slider" id="item-2" />
-                  <input type="radio" name="slider" id="item-3" />
-                  <input type="radio" name="slider" id="item-4" />
-                  <input type="radio" name="slider" id="item-5" />
-                  <input type="radio" name="slider" id="item-6" />
-                  <input type="radio" name="slider" id="item-7" />
-                  <input type="radio" name="slider" id="item-8" />
-                  <input type="radio" name="slider" id="item-9" />
-                  <input type="radio" name="slider" id="item-10" />
-          
-                  <div class="cards">
-                    <label class="cardt cardt-gallery" for="item-1" id="col-img-1">
-                      <img src="./img/shkodër.jpg" />
-                      <div class="carousel-overlay"><h2>Shkodër</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-2" id="col-img-2">
-                      <img src="./img/korçë.jpg" />
-                      <div class="carousel-overlay"><h2>Korçë</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-3" id="col-img-3">
-                      <img src="./img/tiranë.jpg" />
-                      <div class="carousel-overlay"><h2>Tiranë</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-4" id="col-img-4">
-                      <img src="./img/durrës.jpg" />
-                      <div class="carousel-overlay"><h2>Durrës</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-5" id="col-img-5">
-                      <img src="./img/vlorë.jpg" />
-                      <div class="carousel-overlay"><h2>Vlorë</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-6" id="col-img-6">
-                      <img src="./img/elbasan.jpg" />
-                      <div class="carousel-overlay"><h2>Elbasan</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-7" id="col-img-7">
-                      <img src="./img/sarandë.jpg" />
-                      <div class="carousel-overlay"><h2>Sarandë</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-8" id="col-img-8">
-                      <img src="./img/lezhë.jpg" />
-                      <div class="carousel-overlay"><h2>Lezhë</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-9" id="col-img-9">
-                      <img src="./img/berat.jpg" />
-                      <div class="carousel-overlay"><h2>Berat</h2></div>
-                    </label>
-                    <label class="cardt cardt-gallery" for="item-10" id="col-img-10">
-                      <img src="./img/krujë.jpg" />
-                      <div class="carousel-overlay"><h2>Krujë</h2></div>
-                    </label>
+                <div class="boxx">
+                  <div class="containerx">
+                    <input type="radio" name="slider" id="item-1" checked />
+                    <input type="radio" name="slider" id="item-2" />
+                    <input type="radio" name="slider" id="item-3" />
+                    <input type="radio" name="slider" id="item-4" />
+                    <input type="radio" name="slider" id="item-5" />
+                    <input type="radio" name="slider" id="item-6" />
+                    <input type="radio" name="slider" id="item-7" />
+                    <input type="radio" name="slider" id="item-8" />
+                    <input type="radio" name="slider" id="item-9" />
+                    <input type="radio" name="slider" id="item-10" />
+            
+                    <div class="cards">
+                      <label class="cardt cardt-gallery" for="item-1" id="col-img-1">
+                        <img src="./img/shkodër.jpg" />
+                        <div class="carousel-overlay"><h2>Shkodër</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-2" id="col-img-2">
+                        <img src="./img/korçë.jpg" />
+                        <div class="carousel-overlay"><h2>Korçë</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-3" id="col-img-3">
+                        <img src="./img/tiranë.jpg" />
+                        <div class="carousel-overlay"><h2>Tiranë</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-4" id="col-img-4">
+                        <img src="./img/durrës.jpg" />
+                        <div class="carousel-overlay"><h2>Durrës</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-5" id="col-img-5">
+                        <img src="./img/vlorë.jpg" />
+                        <div class="carousel-overlay"><h2>Vlorë</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-6" id="col-img-6">
+                        <img src="./img/elbasan.jpg" />
+                        <div class="carousel-overlay"><h2>Elbasan</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-7" id="col-img-7">
+                        <img src="./img/sarandë.jpg" />
+                        <div class="carousel-overlay"><h2>Sarandë</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-8" id="col-img-8">
+                        <img src="./img/lezhë.jpg" />
+                        <div class="carousel-overlay"><h2>Lezhë</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-9" id="col-img-9">
+                        <img src="./img/berat.jpg" />
+                        <div class="carousel-overlay"><h2>Berat</h2></div>
+                      </label>
+                      <label class="cardt cardt-gallery" for="item-10" id="col-img-10">
+                        <img src="./img/krujë.jpg" />
+                        <div class="carousel-overlay"><h2>Krujë</h2></div>
+                      </label>
+                    </div>
                   </div>
+
+                  <span id="about-quad">
+                      <center>
+                        <h1 style="font-family: var(--ff-montserrat); color: white"><em>
+                          Adventure the Albanian Way.<br>Go on an AlbVenture now! </em>
+                        </h1>
+                        <br />
+                        <a href="game.html">
+                        <img
+                          class="img2"
+                          src="./img/play.jpg"
+                          width="200"
+                          style="border-radius: 12%"
+                        />
+                        </a>                     
+                        <br />
+                        <a href="#home">
+                          <h1 class="logo" style="font-size: 50px">AlbVenture</h1>
+                        </a>
+                      </center>
+                  </span>
+
                 </div>
-          
-                <span id="about-quad">
-                  <a href="#home">
-                    <center>
-                      <h1 style="font-family: var(--ff-montserrat); color: white"><em>
-                        Adventure the Albanian Way.<br>Go on an AlbVenture now! </em>
-                      </h1>
-                      <br />
-                      <a href="game.html">
-                      <img
-                        class="img2"
-                        src="./img/play.jpg"
-                        width="200"
-                        style="border-radius: 12%"
-                      />
-                      </a>                     
-                      <br />
-                      <h1 class="logo" style="font-size: 50px">AlbVenture</h1>
-                    </center>
-                  </a>
-                </span>
               </div>
             </div>
           </section>
-  
-        <!-- About -->
+        <!--Gallery-->
 
-        <!-- Contributions -->
+        <!-- Reviews -->
         <div class="title">
             <h1 class="font-color">Reviews</h1>
             <div class="line"></div>
@@ -485,10 +583,9 @@
           
             </div>
           </section>
-          
-        <!-- Contributions -->
+        <!-- Reviews -->
 
-        <!-- contact -->
+        <!-- Contact -->
         <section id="contact">
             <div class="title">
                 <h1 class="font-color">Contact Us</h1>
@@ -561,7 +658,7 @@
                         </a>
                     </div>
                     <div class="c_boxx">
-                        <a href="#"
+                        <a href="https://www.google.com/maps/place/Tiran%C3%AB/@41.3331847,19.8178232,13z/data=!3m1!4b1!4m6!3m5!1s0x1350310470fac5db:0x40092af10653720!8m2!3d41.3275459!4d19.8186982!16zL20vMDdtX2Y?entry=ttu&g_ep=EgoyMDI1MDQyMy4wIKXMDSoASAFQAw%3D%3D"
                             ><i class="fa fa-map-marker"></i>
                             Location: Tirana, Albania
                         </a>
@@ -569,10 +666,12 @@
                 </div>
             </div>
         </section>
-        <!-- contact  -->
+        <!-- Contact  -->
+
         <!-- up scroll -->
         <i class="arrow"  onclick="topFunction()" id="upbtn"></i>
         <!-- end -->
+
         <!--footer-->
         <section class="footer">
             <span>&copy; 2025 All rights reserved.</span>
@@ -585,13 +684,19 @@
                         ><i class="fa fa-github"></i
                     ></a>
                     <a
-                        href="https://github.com/BjornaKastrati"
+                        href="https://github.com/ArmelaRuci"
                         target="_blank"
                         rel="noreferrer"
                         ><i class="fa fa-github"></i
                     ></a>
                     <a
-                        href="https://github.com/ArmelaRuci"
+                        href="https://github.com/ArgjendHaldeda"
+                        target="_blank"
+                        rel="noreferrer"
+                        ><i class="fa fa-github"></i
+                    ></a>
+                    <a
+                        href="https://github.com/BjornaKastrati"
                         target="_blank"
                         rel="noreferrer"
                         ><i class="fa fa-github"></i
@@ -600,15 +705,8 @@
             </div>
         </section>
         <!--footer-->
+        
 
-        <script>
-            const menuBtn = document.querySelector(".menu-btn");
-            const navlinks = document.querySelector(".nav-links");
-
-            menuBtn.addEventListener("click", () => {
-                navlinks.classList.toggle("mobile-menu");
-            });
-        </script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="js/script.js"></script>
     </body>

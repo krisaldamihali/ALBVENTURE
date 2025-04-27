@@ -1,14 +1,14 @@
-
-// Wait for DOM to be fully loaded
+// Wait for the DOM (Document Object Model) to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the map
-    const map = L.map('map').setView([41.1533, 20.1683], 7);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    
-    // Albanian tourist locations data
+  // Initialize the map with a default center (latitude and longitude) and zoom level (7)
+  const map = L.map('map').setView([41.1533, 20.1683], 7);
+  
+  // Add a tile layer to the map from OpenStreetMap, providing attribution for the map data
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  
+  // Array of objects representing Albanian tourist locations, each containing information for the location
     const locations = [
         { 
             name: "Tirana", 
@@ -300,147 +300,151 @@ document.addEventListener('DOMContentLoaded', function() {
           }
     ];
     
-    // Combine all locations
-    const allLocations = [...locations];
-    
-    // Custom icon with different colors for categories
-    const getCustomIcon = (type) => {
-      let iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
-      
-      if (type === "coastal") {
-        iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png';
-      } else if (type === "historical") {
-        iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png';
-      } else if (type === "nature") {
-        iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png';
-      }
-      
-      return L.icon({
-        iconUrl: iconUrl,
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-      });
-    };
-    
-    // Add markers to the map
-    allLocations.forEach(function(location) {
-      const marker = L.marker(location.coords, {icon: getCustomIcon(location.type)}).addTo(map);
-      marker.bindPopup(`
-        <div class="map-popup">
-          <div class="popup-image" style="background-image: url('${location.image}')"></div>
-          <div class="popup-content">
-            <h3>${location.name}</h3>
-            <p>${location.info}</p>
-            <div class="popup-button" data-location="${location.name}">Explore</div>
-          </div>
-        </div>
-      `, { maxWidth: 300 });
-  
-      marker.on('popupopen', () => {
-        // Add event listener to the explore button
-        setTimeout(() => {
-          const exploreButtons = document.querySelectorAll('.popup-button');
-          exploreButtons.forEach(button => {
-            button.addEventListener('click', function() {
-              const locationName = this.getAttribute('data-location');
-              showLocationDetails(locationName);
-            });
-          });
-        }, 100);
-      });
-    });
-  
-    // Add a legend
-    const legend = L.control({ position: 'bottomright' });
-    legend.onAdd = function() {
-      const div = L.DomUtil.create('div', 'map-legend');
-      div.innerHTML = `
-        <div class="legend-title">Destination Types</div>
-        <div class="legend-item">
-          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png" width="20" height="30">
-          <span>Coastal Destinations</span>
-        </div>
-        <div class="legend-item">
-          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png" width="20" height="30">
-          <span>Historical Sites</span>
-        </div>
-        <div class="legend-item">
-          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png" width="20" height="30">
-          <span>Nature & Parks</span>
-        </div>
-        <div class="legend-item">
-          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png" width="20" height="30">
-          <span>Other Attractions</span>
-        </div>
-      `;
-      return div;
-    };
-    legend.addTo(map);
-    
-    // Function to show location details
-    function showLocationDetails(locationName) {
-      const location = locations.find(loc => loc.name === locationName);
-      if (!location) return;
-      
-      const modal = document.getElementById('location-modal');
-      const modalContent = modal.querySelector('.location-modal-content');
-      
-      modalContent.innerHTML = `
-        <div class="location-hero" style="background-image: url('${location.image}')">
-          <div class="location-title">
-            <h1>${location.name}</h1>
-            <p>${location.info}</p>
-          </div>
-        </div>
-        <div class="location-content">
-          <div class="back-button">← Back to map</div>
-          <div class="location-details">
-            <div class="location-main">
-              <div class="location-description">
-                <h2>About ${location.name}</h2>
-                <p>${location.description}</p>
-              </div>
-              <div class="location-attractions">
-                <h2>Things to Do</h2>
-                <ul>
-                  ${location.attractions.map(attraction => `<li>${attraction}</li>`).join('')}
-                </ul>
-              </div>
+    // Combine all locations into a single array for easier manipulation
+      const allLocations = [...locations];
+
+      // Function to create a custom icon for markers based on location type
+      const getCustomIcon = (type) => {
+        let iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'; // Default icon
+        
+        // Check the type of location and set the icon URL accordingly
+        if (type === "coastal") {
+          iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png'; // Coastal locations
+        } else if (type === "historical") {
+          iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'; // Historical sites
+        } else if (type === "nature") {
+          iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png'; // Nature & Parks
+        }
+        
+        // Return a Leaflet icon with the appropriate properties
+        return L.icon({
+          iconUrl: iconUrl,
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/images/marker-shadow.png', // Shadow effect for marker
+          iconSize: [25, 41], // Size of the marker
+          iconAnchor: [12, 41], // Anchor point of the marker
+          popupAnchor: [1, -34], // Position of the popup relative to the marker
+          shadowSize: [41, 41] // Size of the shadow
+        });
+      };
+
+      // Loop through all locations to add markers to the map
+      allLocations.forEach(function(location) {
+        const marker = L.marker(location.coords, {icon: getCustomIcon(location.type)}).addTo(map); // Add marker with custom icon
+        marker.bindPopup(`
+          <div class="map-popup">
+            <div class="popup-image" style="background-image: url('${location.image}')"></div> <!-- Location image in popup -->
+            <div class="popup-content">
+              <h3>${location.name}</h3> <!-- Location name -->
+              <p>${location.info}</p> <!-- Short information about the location -->
+              <div class="popup-button" data-location="${location.name}">Explore</div> <!-- Button to explore more -->
             </div>
-            <div class="location-sidebar">
-              <div class="sidebar-section">
-                <h3>Visitor Information</h3>
-                <div class="info-box">
-                  <p><strong>Best time to visit:</strong> ${location.bestTime}</p>
-                  <p><strong>How to get there:</strong> ${location.howToGet}</p>
+          </div>
+        `, { maxWidth: 300 }); // Set maximum popup width
+        
+        // Add event listener when the popup is opened
+        marker.on('popupopen', () => {
+          // Add event listener to the "Explore" button within the popup
+          setTimeout(() => {
+            const exploreButtons = document.querySelectorAll('.popup-button');
+            exploreButtons.forEach(button => {
+              button.addEventListener('click', function() {
+                const locationName = this.getAttribute('data-location'); // Get the location name from button
+                showLocationDetails(locationName); // Call function to show location details
+              });
+            });
+          }, 100); // Small delay to ensure the buttons are available
+        });
+      });
+
+      // Add a legend to the map for better understanding of markers
+      const legend = L.control({ position: 'bottomright' });
+      legend.onAdd = function() {
+        const div = L.DomUtil.create('div', 'map-legend');
+        div.innerHTML = `
+          <div class="legend-title">Destination Types</div> <!-- Legend title -->
+          <div class="legend-item">
+            <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png" width="20" height="30">
+            <span>Coastal Destinations</span> <!-- Legend for coastal destinations -->
+          </div>
+          <div class="legend-item">
+            <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png" width="20" height="30">
+            <span>Historical Sites</span> <!-- Legend for historical sites -->
+          </div>
+          <div class="legend-item">
+            <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png" width="20" height="30">
+            <span>Nature & Parks</span> <!-- Legend for nature & parks -->
+          </div>
+          <div class="legend-item">
+            <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png" width="20" height="30">
+            <span>Other Attractions</span> <!-- Legend for other attractions -->
+          </div>
+        `;
+        return div;
+      };
+      legend.addTo(map); // Add the legend to the map
+
+      // Function to display detailed information about a location when "Explore" is clicked
+      function showLocationDetails(locationName) {
+        const location = locations.find(loc => loc.name === locationName); // Find the location by name
+        if (!location) return; // If location is not found, exit the function
+        
+        const modal = document.getElementById('location-modal'); // Get the modal element
+        const modalContent = modal.querySelector('.location-modal-content'); // Get the content area of the modal
+        
+        // Set modal content dynamically based on the location data
+        modalContent.innerHTML = `
+          <div class="location-hero" style="background-image: url('${location.image}')">
+            <div class="location-title">
+              <h1>${location.name}</h1> <!-- Location title -->
+              <p>${location.info}</p> <!-- Location short description -->
+            </div>
+          </div>
+          <div class="location-content">
+            <div class="back-button">← Back to map</div> <!-- Back to map button -->
+            <div class="location-details">
+              <div class="location-main">
+                <div class="location-description">
+                  <h2>About ${location.name}</h2> <!-- Location detailed description title -->
+                  <p>${location.description}</p> <!-- Detailed description of the location -->
+                </div>
+                <div class="location-attractions">
+                  <h2>Things to Do</h2> <!-- Attractions title -->
+                  <ul>
+                    ${location.attractions.map(attraction => `<li>${attraction}</li>`).join('')} <!-- List of attractions -->
+                  </ul>
                 </div>
               </div>
-              <div class="sidebar-section">
-                <h3>Did You Know?</h3>
-                <p>${location.fact}</p>
+              <div class="location-sidebar">
+                <div class="sidebar-section">
+                  <h3>Visitor Information</h3> <!-- Visitor info title -->
+                  <div class="info-box">
+                    <p><strong>Best time to visit:</strong> ${location.bestTime}</p> <!-- Best time to visit the location -->
+                    <p><strong>How to get there:</strong> ${location.howToGet}</p> <!-- Travel information -->
+                  </div>
+                </div>
+                <div class="sidebar-section">
+                  <h3>Did You Know?</h3> <!-- Fun fact title -->
+                  <p>${location.fact}</p> <!-- Fun fact about the location -->
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      `;
-      
-      modal.classList.add('active');
-      
-      // Back button functionality
-      const backButton = modalContent.querySelector('.back-button');
-      backButton.addEventListener('click', function() {
-        modal.classList.remove('active');
-      });
-    }
-    
-    // Close modal when clicking outside
-    const modal = document.getElementById('location-modal');
-    modal.addEventListener('click', function(e) {
-      if (e.target === this) {
-        modal.classList.remove('active');
+        `;
+        
+        modal.classList.add('active'); // Show the modal
+        
+        // Add functionality to the back button
+        const backButton = modalContent.querySelector('.back-button');
+        backButton.addEventListener('click', function() {
+          modal.classList.remove('active'); // Close the modal when the back button is clicked
+        });
       }
+
+      // Close the modal when clicking outside of it
+      const modal = document.getElementById('location-modal');
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          modal.classList.remove('active'); // Close the modal if clicked outside of it
+        }
     });
   });
