@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metadata and Charset Configuration -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Albania Discovery Journey</title>
+    <meta name="description" content="Explore the beautiful destinations of Albania" />
+    <meta name="author" content="Lovable" />
+    
+    <!-- External CSS for Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <!-- Font Awesome for Icons and Google Fonts for Typography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Stylesheets for the Page -->
+    <link rel="stylesheet" href="css/albania-map.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+  </head>
+
+  <body>
+    
+    <!-- Navigation Bar Section -->
+    <nav class="navbar glass" style="height: 70px">
+      <!-- Logo and Home Link -->
+      <span>
+        <a href="index.html#home" style="display: flex; align-items: center">
+          <img class="img2" src="./img/logo.png" width="40" style="margin: -25px -10px -25px -20px" />
+          <h1 class="logo">&nbsp;AlbVenture</h1>
+        </a>
+      </span>
+      
+      <!-- Navigation Links -->
+      <ul class="nav-links">
+        <li><a href="index.html#home" id="pri" class="active cir_border">Home</a></li>
+        <li><a href="index.html#activities" id="sec" class="cir_border">Activities</a></li>
+        <li><a href="index.html#explore" id="tri" class="cir_border">Explore</a></li>
+        <li><a href="index.html#tours" id="quad" class="cir_border">Landmarks</a></li>
+        <li><a href="index.html#about" id="quint" class="cir_border">Gallery</a></li>
+        <li><a href="index.html#reviews" id="hex" class="cir_border">Reviews</a></li>
+        <li><a href="index.html#contact" id="hept" class="cir_border">Contact</a></li>
+
+        <!-- Voice Toggle Button for Text-to-Speech -->
+        <li>
+          <button id="voiceToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+              🔊
+          </button>
+        </li>
+
+        <!-- Speech Recognition Button -->
+        <li>
+          <button id="micToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+              🎤
+          </button>
+        </li>
+
+        <!-- Dark Mode Toggle -->
+        <li>
+          <div>
+            <input type="checkbox" class="checkbox dark" id="checkbox" />
+            <label for="checkbox" class="label">
+              <i class="fa fa-moon-o"></i>
+              <i class="fa fa-sun-o"></i>
+              <div class="ball"></div>
+            </label>
+          </div>
+        </li>
+      </ul>
+      <!-- Mobile Menu Button (Responsive) -->
+      <img src="./img/menu-btn.png" alt="" class="menu-btn" />
+    </nav>
+
+    <!-- Interactive Map Section -->
+    <section class="map-section" id="map-section">
+      <div class="container">
+        <h2>INTERACTIVE MAP</h2>
+        <p>Click on a location to learn more about these amazing destinations</p>
+        <!-- Placeholder for Map -->
+        <div id="map"></div>
+      </div>
+    </section>
+
+    <!-- Modal to Display Location Details (JavaScript Populated) -->
+    <div id="location-modal" class="location-modal">
+      <div class="location-modal-content">
+        <!-- Content will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <section class="footer">
+      <span>&#169; 2025 All rights reserved.</span>
+    </section>
+
+    <!-- External JS Libraries -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <!-- Custom JavaScript for Map and Speech Recognition -->
+    <script src="js/albania-map.js"></script>
+    <script src="js/script.js" defer></script>
+
+    <!-- Text-to-Speech and Speech Recognition Scripts -->
+    <script>
+      // Text-to-Speech functionality
+      let isSpeaking = false;
+      let synth = window.speechSynthesis;
+      let utterance = null;
+
+      // Trigger Text-to-Speech when button is clicked
+      document.getElementById('voiceToggle').addEventListener('click', () => {
+        if (!isSpeaking) {
+          const text = document.body.innerText;
+          utterance = new SpeechSynthesisUtterance(text);
+          synth.speak(utterance);
+          isSpeaking = true;
+        } else {
+          synth.cancel();
+          isSpeaking = false;
+        }
+      });
+
+      // Speech Recognition Setup
+      let isListening = false;
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = true;  // Recognition will keep listening until manually stopped
+      recognition.interimResults = true;  // Display intermediate results as the user speaks
+
+      // Start/Stop speech recognition when mic button is clicked
+      document.getElementById('micToggle').addEventListener('click', () => {
+        if (!isListening) {
+          recognition.start();
+          isListening = true;
+          document.getElementById('micToggle').textContent = '🛑';  // Change mic icon to indicate listening
+        }
+      });
+
+      // Handle results from speech recognition
+      recognition.onresult = function(event) {
+        const speechResult = event.results[event.results.length - 1][0].transcript.toLowerCase();
+        console.log('You said:', speechResult);
+
+        // Navigate based on voice commands
+        if (speechResult.includes('home')) {
+          window.location.href = 'index.html#home';
+        } else if (speechResult.includes('activities')) {
+          window.location.href = 'index.html#activities';
+        } else if (speechResult.includes('explore')) {
+          window.location.href = 'index.html#explore';
+        } else if (speechResult.includes('landmarks')) {
+          window.location.href = 'index.html#tours';
+        } else if (speechResult.includes('gallery')) {
+          window.location.href = 'index.html#about';
+        } else if (speechResult.includes('reviews')) {
+          window.location.href = 'index.html#reviews';
+        } else if (speechResult.includes('contact')) {
+          window.location.href = 'index.html#contact';
+        } else if (speechResult.includes('start exploring')) {
+          window.location.href = 'explore.html';
+        } else if (speechResult.includes('discover cities')) {
+          window.location.href = 'index.html#about';
+        } else if (speechResult.includes('plan a trip')) {
+          window.location.href = 'map.html';
+        } else if (speechResult.includes('play')) {
+          window.location.href = 'game.html';
+        }
+      };
+
+      // Handle recognition errors
+      recognition.onerror = function(event) {
+        console.error('Speech recognition error', event.error);
+      };
+
+      // Stop recognition when double-clicking the mic button
+      document.getElementById('micToggle').addEventListener('dblclick', () => {
+        recognition.stop();
+        isListening = false;
+        document.getElementById('micToggle').textContent = '🎤';  // Reset mic icon
+      });
+    </script>
+
+  </body>
+</html>

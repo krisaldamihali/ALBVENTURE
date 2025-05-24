@@ -1,0 +1,1486 @@
+/* ============================================================= */
+/*                   AlbVenture Project - style.css              */
+/* ============================================================= */
+
+/* ============================================================= */
+/*                   Imports Section, Global Section             */
+/* ============================================================= */
+
+
+/* ----------------------------- */
+/* Google Fonts                  */
+/* ----------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;800&family=Parisienne&family=Roboto&family=Teko:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap");
+
+/* -----------------------------     */
+/* Root Variables & General Settings */
+/* -----------------------------     */
+:root {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  /* Fonts */
+  --ff-parisienne: "Parisienne", cursive;
+  --ff-montserrat: "Montserrat", sans-serif;
+  --ff-lora: "Lora", serif;
+  --ff-roboto: "Roboto", sans-serif;
+  --ff-rubik-dirt: "Rubik Dirt", cursive;
+
+  /* Font Sizes */
+  --fs-paragraphs: calc(0.8rem + 0.35vw);
+  --fs-links-btns: calc(0.65rem + 0.5vw);
+}
+
+/* ----------------------------- */
+/* Reset default browser margins */
+/* ----------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+/* ----------------------------- */
+/* Global body and html settings */
+/* ----------------------------- */
+body,
+html {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  box-sizing: border-box;
+}
+
+/* ----------------------------- */
+/* Elements Default Appearance   */
+/* ----------------------------- */
+img {
+  max-width: 100%;
+  display: block;
+  transition: transform 0.3s ease; /* smooth hover scaling */
+}
+
+img:hover {
+  transform: scale(1.1); /* zoom effect on hover */
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+span {
+  color: #7c7c7c;
+  padding: 0px 40px;
+}
+
+/* ----------------------------- */
+/* Scrollbar Customization       */
+/* ----------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+
+/* ============================================================= */
+/*                        NAVBAR Section                         */
+/* ============================================================= */
+
+/* ----------------------------- */
+/* Navbar Container              */
+/* ----------------------------- */
+.navbar {
+  position: fixed; /* Always visible at the top */
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2); /* Transparent black */
+  backdrop-filter: saturate(180%) blur(10px); /* Blur behind navbar */
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5px;
+  z-index: 10;
+  color: whitesmoke;
+}
+
+/* ----------------------------- */
+/* AlbVenture Logo Style         */
+/* ----------------------------- */
+.logo {
+  font-family: var(--ff-rubik-dirt);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4rem;
+  padding: 0 1.2rem;
+  font-weight: 300;
+  color: rgb(254, 252, 252);
+}
+
+/* ----------------------------- */
+/* Navigation Links              */
+/* ----------------------------- */
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  font-family: var(--ff-montserrat);
+  margin: 0px 15px;
+}
+
+.nav-links li a {
+  color: white;
+  cursor: pointer;
+}
+
+/* ----------------------------- */
+/* Circular Border around Links  */
+/* ----------------------------- */
+.cir_border {
+  padding: 6px 20px;
+  font-weight: bold;
+  border: 2px hidden whitesmoke;
+  border-radius: 20px;
+  margin: 0px -10px;
+}
+
+/* ----------------------------- */
+/* Active Link Highlighting      */
+/* ----------------------------- */
+.active {
+  border: 2px solid whitesmoke;
+  border-radius: 20px;
+  color: #fc036b;
+  cursor: pointer;
+}
+
+/* ----------------------------- */
+/* Hover Effects on Links        */
+/* ----------------------------- */
+.cir_border:hover {
+  color: #fc036b;
+}
+
+.nav-links .ctn:hover a {
+  color: #fc036b;
+}
+
+/* ----------------------------- */
+/* Menu Button (for mobile)      */
+/* ----------------------------- */
+.menu-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  cursor: pointer;
+  display: none; /* It will appear on smaller screens (see responsive.css) */
+}
+
+
+/* ============================================================= */
+/*                        HOME Section                           */
+/* ============================================================= */
+
+/* ----------------------------- */
+/* Home Section Container        */
+/* ----------------------------- */
+#home {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+/* ----------------------------- */
+/* Background Video              */
+/* ----------------------------- */
+#bgVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover; /* Makes the video cover the area */
+  z-index: -1; /* Stays behind the overlay and content */
+}
+
+/* ----------------------------- */
+/* Dark Overlay over Video       */
+/* ----------------------------- */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  z-index: 0; /* behind the header content */
+}
+
+/* ----------------------------- */
+/* Content Over the Video        */
+/* ----------------------------- */
+.header-content {
+  font-family: var(--ff-lora);
+  letter-spacing: 0.5rem;
+  color: whitesmoke;
+  text-align: center;
+  z-index: 1; /* placed above video and overlay */
+  padding: 4rem;
+  margin-bottom: 150px;
+}
+
+.header-content h2 {
+  font-size: 4vmin;
+}
+
+.line {
+  width: 150px;
+  height: 4px;
+  background: #fc036b;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+
+.header-content h1 {
+  font-size: 7vmin;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+/* ----------------------------- */
+/* Call-to-Action Button         */
+/* ----------------------------- */
+.header-content a {
+  letter-spacing: 0.1rem;
+}
+
+.ctn {
+  font-family: var(--ff-montserrat);
+  font-size: var(--fs-links-btns);
+  font-weight: 700;
+  padding: 13px 50px;
+  background: #fc036b;
+  border-radius: 30px;
+  color: whitesmoke;
+}
+
+/* Hover effect on CTA button */
+.ctn:hover {
+  background: whitesmoke;
+  color: #fc036b;
+  box-shadow: 2px 2px 5px #00000056;
+  cursor: pointer;
+}
+
+
+/* ============================================================= */
+/*                        ACTIVITIES Section                     */
+/* ============================================================= */
+
+/* General Section Styling */
+section {
+  width: 80%;
+  margin: 80px auto;
+  scroll-margin-top: 0px; /* Ensures anchor links don't overlap with navbar */
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+/* Section Title */
+.title {
+  text-align: center;
+  font-family: var(--ff-montserrat);
+  font-size: 4vmin;
+}
+
+/* Card Layout */
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Spacing between cards */
+}
+
+.card {
+  cursor: pointer;
+  height: auto;
+}
+
+/* Card Column Layout */
+.card.col {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  padding-bottom: 2rem;
+}
+
+/* Card Content */
+.row .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  height: 450px;
+}
+
+/* Activity Images */
+.row .col img {
+  width: 80%;
+  max-width: 80%;
+  height: 300px;
+  object-fit: cover; /* Image covers the container proportionally */
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Specific margin for the activities row */
+.events .row {
+  margin-top: 50px;
+}
+
+/* Titles inside each Card */
+.col > h4 {
+  font-size: calc(1rem + 0.5vw);
+  margin: 20px auto;
+  font-family: var(--ff-lora);
+}
+
+/* Paragraphs inside each Card */
+.col p {
+  color: #7c7c7c;
+  padding: 0px 40px;
+  font-size: var(--fs-paragraphs);
+  font-family: var(--ff-roboto);
+}
+
+/* Center and limit paragraph width */
+.col > p {
+  padding: 0 20px;
+  max-width: 60ch; /* 60 characters wide for readability */
+  text-align: center;
+}
+
+/* Call-to-Action button inside Events */
+.events .ctn {
+  margin-top: 30px;
+}
+
+
+/* ============================================================= */
+/*                        EXPLORE Section                        */
+/* ============================================================= */
+
+/* Explore Section Background */
+.explore {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/bg2.png);
+  background-attachment: fixed; /* Scrolls differently for parallax effect */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+/* Explore Section Content */
+.explore-content {
+  font-family: var(--ff-lora);
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 8rem; /* pushed a little right */
+  position: relative;
+  z-index: 1;
+  padding: 2rem 17px;
+  margin: auto;
+}
+
+/* Explore Background Layer (dark transparent) */
+.explore-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2.5px);
+  border-radius: 0.5rem;
+}
+
+/* Explore Title */
+.explore-content h1 {
+  font-size: calc(2.2rem + 1vw);
+  letter-spacing: 0.3rem;
+  margin: auto;
+}
+
+/* Line below Explore title */
+.explore-content .line {
+  margin-bottom: 50px;
+}
+
+/* Explore Description Paragraph */
+.explore-content p {
+  color: rgb(221, 221, 221);
+  max-width: 65ch;
+  line-height: 1.5;
+  text-align: left;
+  padding: 0px 35px;
+}
+
+/* Explore Button */
+.explore-content .ctn {
+  margin: 17px auto;
+  padding: 12px 27px;
+}
+
+
+/* ============================================================= */
+/*                        LANDMARKS Section                      */
+/* ============================================================= */
+
+/* Images in Landmarks Section */
+#tours img {
+  border-radius: 12px;
+}
+
+/* Image Gallery Layout for Landmarks */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+/* Adjustments for rows in Landmarks section */
+.row.row-tours {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4rem;
+}
+
+/* Left Side (Text Content) */
+.content-col {
+  position: relative;
+}
+
+/* Title on Left Side */
+.content-col h1 {
+  font-size: calc(2.2rem + 1vw);
+  font-family: var(--ff-lora);
+  max-width: 15.5ch;
+}
+
+/* Decorative Line under Title */
+.content-col .line {
+  margin-left: 0;
+}
+
+/* Paragraph under Title */
+.content-col p {
+  padding: 0;
+  margin: 30px 0;
+  width: 100%;
+  text-align: left;
+  max-width: 40ch;
+}
+
+/* Learn More Button in Landmarks Section */
+.content-col .ctn {
+  position: absolute;
+  left: 0;
+  bottom: -14%;
+}
+
+/* Individual Landmark Card */
+.landmark-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Landmark Images */
+.landmark-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+  border-radius: 12px;
+}
+
+/* Zoom Effect on Hover */
+.landmark-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Info Box that appears on Hover */
+.landmark-info {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* Show Info on Hover */
+.landmark-card:hover .landmark-info {
+  opacity: 1;
+}
+
+/* Title inside Landmark Info */
+.landmark-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Description inside Landmark Info */
+.landmark-info p {
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+
+/* ============================================================= */
+/*                         GALLERY Section                       */
+/* ============================================================= */
+
+/* About Section Container */
+#about {
+  width: 100%;
+}
+
+/* Main Background for About (Gallery) Section */
+#about_us {
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)),
+    url("https://i0.wp.com/www.toonsarah-travels.blog/wp-content/uploads/2024/01/15-Newcastle-00050-.jpg?resize=1280%2C942&ssl=1");
+  width: 100%;
+  height: 630px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; /* Creates parallax scrolling effect */
+  margin: 30px 0px 0px 0px;
+}
+
+/* Grid layout inside About Section */
+#about_us div {
+  padding: 10px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 1fr 1fr;
+  column-gap: 5px;
+  position: relative;
+}
+
+/* Span inside About (Adventure Invitation Part) */
+#about_us div span {
+  margin: 0;
+  position: absolute;
+  top: 60%;
+  opacity: 0; /* Initially hidden */
+  left: 80%;
+  transform: translate(-50%, -50%);
+  transition: 1s; /* Smooth reveal */
+}
+
+/* Paragraphs inside About Section */
+#about_us p {
+  width: 43em;
+  color: white;
+  text-align: justify;
+  padding-top: 14em;
+  font-family: "Work Sans", sans-serif;
+  margin-left: 6em;
+}
+
+/* Fancy First Letter Styling in Gallery Paragraph */
+#about_us p::first-letter {
+  padding-left: 47px;
+  font-size: 55px;
+  color: #fc036b;
+}
+
+/* Image Container (Each city image) */
+.gallery-image {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+/* City Images */
+.gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+/* Hover Zoom Effect on Images */
+.gallery-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Overlay on Gallery Images (Appears on hover) */
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  opacity: 0; /* Hidden initially */
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+}
+
+/* Show overlay text when hovering the city card */
+.cardt-gallery:hover .carousel-overlay {
+  opacity: 1;
+}
+
+
+/* ============================================================= */
+/*                        REVIEWS Section                        */
+/* ============================================================= */
+
+/* Whole Contributors Section */
+.contributors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 5em 2em;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Container for multiple review cards */
+.contributors-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 2em;
+}
+
+/* Single Review Card */
+.review-card {
+  background-color: #fff;
+  border-radius: 12px;
+  width: 220px;
+  height: 260px;
+  padding: 1.2em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  transition: 0.3s ease;
+  position: relative;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+/* Hover Effect on Review Cards */
+.review-card:hover {
+  background-color: #fb036b;
+  color: white;
+  transform: translateY(-7px);
+}
+
+/* Reviewer Profile Image */
+.review-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-bottom: 1em;
+  border: 3px solid #fb036b;
+}
+
+/* Reviewer Info (Name and Stars) */
+.review-info {
+  text-align: center;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide Reviewer Info when hovering */
+.review-card:hover .review-info {
+  opacity: 0;
+}
+
+/* Reviewer's Name */
+.review-name {
+  font-size: 1.1rem;
+  margin: 0.2em 0;
+  font-weight: 600;
+  color: #fb036b;
+}
+
+/* Reviewer's Stars */
+.review-stars {
+  font-size: 1.1rem;
+  color: gold;
+}
+
+/* Review Comment (hidden initially) */
+.review-comment {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  text-align: center;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+}
+
+/* Show Review Comment on hover */
+.review-card:hover .review-comment {
+  opacity: 1;
+}
+
+/* ============================================================= */
+/*                        CONTACT Section                        */
+/* ============================================================= */
+
+/* Contact Section Wrapper */
+#contact {
+  width: 90%;
+}
+
+/* Main Contact Section Layout */
+.contact_us {
+  margin-top: 3rem;
+  display: flex;
+  font-family: var(--ff-roboto);
+}
+
+/* Contact Form */
+form {
+  width: 50%;
+}
+
+/* Contact Details Box */
+.cbox {
+  width: 45%;
+  margin-left: 70px;
+  padding: 10px 30px;
+}
+
+/* Message above Contact Info */
+.cbox-message {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+/* Decorative Line in Contact Info */
+.cbox-line {
+  width: 20%;
+  height: 0.2em;
+  background-color: #fb036b;
+  margin-bottom: 3em;
+  margin-top: 1em;
+}
+
+/* Each Box (Mail, Phone, Location) */
+.c_boxx a {
+  padding: 1em;
+  margin-bottom: 2em;
+  padding-left: 2em;
+  border: 0.1em solid #fc036b;
+  background-color: #fc036b;
+  color: white;
+  display: flex;
+  border-radius: 2em;
+  align-items: center;
+  font-size: 1em;
+}
+
+.c_boxx a:hover {
+  background-color: white;
+  color: #fc036b;
+  transition: all 0.5s ease;
+}
+
+/* Icons inside Contact Boxes */
+.c_boxx i {
+  font-size: 38px;
+  margin-right: 10px;
+}
+
+/* Inputs, Textareas, Dropdowns */
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+/* Labels for Form Inputs */
+label {
+  padding: 0px 0px 7px 6px;
+  display: inline-block;
+}
+
+/* Submit Button */
+input[type="submit"] {
+  background-color: #fc036b;
+  color: whitesmoke;
+  padding: 12px 50px;
+  border: 2px solid #fc036b;
+  border-radius: 100vmax;
+  cursor: pointer;
+  font-family: var(--ff-montserrat);
+  font-size: var(--fs-links-btns);
+}
+
+/* Submit Button Hover */
+input[type="submit"]:hover {
+  background-color: whitesmoke;
+  color: #fc036b;
+}
+
+/* Form Container Background */
+.cform {
+  background-color: #222;
+  padding: 1em;
+  border-radius: 0.5rem;
+}
+
+/* Form Inputs Layout */
+.crow-in {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Top Message in Form */
+.crow-message {
+  margin: 1rem;
+}
+
+/* Decorative Line under Form Message */
+.crow-message div {
+  width: 20%;
+  display: block;
+  height: 1em;
+  border-bottom: 3px solid #fc036b;
+}
+
+/* Responsive Adjustments for smaller form parts */
+.ccol-left {
+  margin: 1em;
+}
+
+.crow:after,
+.crow-s::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.crow-s {
+  margin: 1em;
+  color: #fc036b;
+}
+
+
+/* ============================================================= */
+/*                          FOOTER Section                       */
+/* ============================================================= */
+
+.footer {
+  width: 100%;
+  min-height: 100px;
+  padding: 20px 80px;
+  margin: 0;
+  background: #222; /* Dark background */
+  text-align: center;
+}
+
+.footer p {
+  color: whitesmoke;
+  margin: 20px auto;
+  padding: 20px auto;
+}
+
+.footer span {
+  display: block;
+  color: whitesmoke;
+  padding: 20px auto;
+}
+
+/* Social Media Container */
+.social {
+  width: 360px;
+  margin: 30px auto;
+}
+
+.social li {
+  list-style: none;
+}
+
+/* Social Media Links */
+.social a {
+  margin-right: 10px;
+  font-size: 18px;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effect for Social Links */
+.social a:hover {
+  background-color: #fc036b;
+}
+
+/* Social Icons */
+.social i {
+  display: inline;
+  text-align: center;
+  color: whitesmoke;
+}
+
+
+/* ============================================================= */
+/*                      GENERAL ANIMATIONS                       */
+/* ============================================================= */
+
+/* Smooth zoom on all images */
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.1);
+}
+
+/* Hover on navbar links */
+.cir_border:hover {
+  color: #fc036b;
+}
+
+/* Highlight active section in navbar */
+.active {
+  border: 2px solid whitesmoke;
+  border-radius: 20px;
+  color: #fc036b;
+  cursor: pointer;
+}
+
+/* Call-to-Action button hover effect */
+.ctn:hover {
+  background: whitesmoke;
+  color: #fc036b;
+  box-shadow: 2px 2px 5px #00000056;
+  cursor: pointer;
+}
+
+/* Navigation links inside buttons */
+.nav-links .ctn:hover a {
+  color: #fc036b;
+}
+
+
+/* ============================================================= */
+/*                          DARK MODE                            */
+/* ============================================================= */
+
+/* Default Dark Mode */
+body {
+  background-color: black;
+  color: white;
+}
+
+/* Light Mode */
+body.dark {
+  background-color: white;
+  color: black;
+}
+
+/* Dark Mode Toggle Switch Hidden Checkbox */
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+/* Toggle Switch (Label) */
+.label {
+  width: 48px;
+  height: 22px;
+  background-color: #111;
+  display: flex;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  transform: scale(1.5);
+}
+
+/* Toggle Ball inside Switch */
+.ball {
+  width: 20px;
+  height: 18px;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+/* When checkbox is checked, ball slides to the right */
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+}
+
+/* Icons inside Dark/Light Switch */
+.fa-moon-o {
+  color: white;
+}
+
+.fa-sun-o {
+  color: yellow;
+}
+
+/* Generic White Text Color Class */
+.color {
+  color: white;
+}
+
+
+/* ============================================================= */
+/*                    SCROLL-UP BUTTON ("Arrow")                 */
+/* ============================================================= */
+
+.arrow {
+  position: fixed;
+  z-index: 99;
+  cursor: pointer;
+  padding: 15px;
+  width: 8vmin;
+  height: 8vmin;
+  box-sizing: border-box;
+  left: 95%;
+  top: 86%;
+  transform: rotate(-45deg);
+}
+
+/* Drawing arrow shape with pseudo-elements */
+.arrow::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  border-width: .8vmin .8vmin 0 0;
+  border-style: solid;
+  border-color: #fff;
+  transition: .2s ease;
+  display: block;
+  transform-origin: 100% 0;
+}
+
+.arrow::after {
+  content: '';
+  float: left;
+  position: relative;
+  top: -86%;
+  width: 100%;
+  height: 100%;
+  border-width: 0 .8vmin 0 0;
+  border-style: solid;
+  border-color: #fff;
+  transform-origin: 100% 0;
+  transition: .2s ease;
+}
+
+/* Hover Effects for Scroll Button */
+.arrow:hover::after {
+  transform: rotate(45deg);
+  border-color: #fc036b;
+  height: 120%;
+}
+
+.arrow:hover::before {
+  border-color: #fc036b;
+  transform: scale(.8);
+}
+
+/* Scroll Button Dark Mode Adjustments */
+.dark .arrow::before {
+  border-color: black;
+}
+.dark .arrow::after {
+  border-color: black;
+}
+.dark .arrow:hover::after {
+  border-color: #fc036b;
+}
+.dark .arrow:hover::before {
+  border-color: #fc036b;
+}
+
+
+/* ============================================================= */
+/*                 DARK MODE SUPPORT FOR SECTIONS                */
+/* ============================================================= */
+
+/* Fix overlay text color inside Gallery */
+body.dark .cardt-gallery .carousel-overlay {
+  color: black;
+}
+
+/* Light mode background for Gallery Section */
+.dark #about_us {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3)),
+    url("https://i0.wp.com/www.toonsarah-travels.blog/wp-content/uploads/2024/01/14-P1070564-.jpg?resize=960%2C713&ssl=1");
+  width: 100%;
+  height: 630px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 30px 0px 0px 0px;
+}
+
+/* Light mode text color for Gallery Title and Logo */
+body.dark #about-quad h1,
+body.dark #about-quad .logo {
+  color: black !important;
+}
+
+/* Light mode fixes for Review Cards */
+body.dark .review-card {
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+}
+
+body.dark .review-name {
+  color: #fc036b;
+}
+
+body.dark .review-comment {
+  background-color: #fa579b9f;
+  color: black;
+}
+
+/* Light mode fixes for Contributors Section */
+body.dark .contributors {
+  background-color: #fff;
+}
+
+
+/* ============================================================= */
+/*               DARK MODE FIXES FOR explore.html                */
+/* ============================================================= */
+
+/* Map Background Light Mode */
+.dark .map-section {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Map Popup Styling */
+.dark .map-popup {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Popup Titles */
+.dark .popup-content h3 {
+  color: #fc036b !important;
+}
+
+/* Popup Paragraphs */
+.dark .popup-content p {
+  color: #000000 !important;
+}
+
+/* Map Legend */
+.dark .map-legend {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 10px #fc036b;
+}
+
+/* Legend Title */
+.dark .legend-title {
+  color: #fc036b !important;
+}
+
+/* Location Modal */
+.dark .location-modal {
+  background: #eeeeee !important;
+}
+
+.dark .location-modal-content {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.dark .location-content,
+.dark .location-details {
+  color: #000000;
+}
+
+.dark .location-sidebar,
+.dark .info-box {
+  background: #fc036b33 !important;
+  color: #000000 !important;
+}
+
+/* Map Section Title */
+.dark .map-section h2 {
+  color: #000000;
+}
+
+/* Location Title inside Modals */
+.dark .location-title {
+  color: #ffffff;
+}
+
+
+/* ============================================================= */
+/*               DARK MODE FIXES FOR game.html                   */
+/* ============================================================= */
+
+/* Game Page Background Light Mode */
+body.dark.game-page {
+  background:
+    url('../img/lightMode.jpg') no-repeat center center fixed,
+    linear-gradient(135deg, #a1a5bc, #72849e);
+  background-size: cover, cover;
+}
+
+/* ============================================================= */
+/*               DARK MODE FIXES FOR map.html                   */
+/* ============================================================= */
+
+/* Route Calculator Page Background Light Mode */
+body.dark.bg-gray-900 {
+  background: rgb(255, 255, 255);
+}
+
+body.dark .route-subtitle{
+  color: #000000;
+}
+
+.dark .route-container {
+  background-color: #ffffff; 
+  border: 1px solid #000000;
+}
+.dark .route-container-title {
+  color: #000000;
+}
+
+.dark .input-title {
+  color: white;
+}
+
+.dark .calculate-btn {
+    background-color: white !important;
+}
+.dark .calculate-btn span {
+    color: #fc036b !important;
+}
+
+/* ============================================================= */
+/*                   CAROUSEL (in GALLERY section)               */
+/* ============================================================= */
+
+/* Google Font Import for Carousel Text */
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
+
+/* Hide native radio buttons */
+input[type=radio] {
+  display: none;
+}
+
+/* Carousel Cards */
+.cardt {
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  left: 5vw;
+  right: 0;
+  top: 14%;
+  margin: auto;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+/* Container for All Cards */
+.containerx {
+  width: 100%;
+  height: 50vh;
+  transform-style: preserve-3d; /* Needed for 3D switching look */
+}
+
+/* Internal Cards Layout */
+.cards {
+  position: relative;
+  width: 80vw; 
+  max-width: 800px; /* Prevents it from getting too huge */
+  margin: 0 start; 
+  height: 100%;
+}
+
+/* Carousel Images inside Cards */
+.cards label img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ============================================================= */
+/*        ACTIVE CARD - Center Image in Carousel                 */
+/* ============================================================= */
+
+/* The selected radio button makes the corresponding image active (center) */
+#item-1:checked ~ .cards #col-img-1,
+#item-2:checked ~ .cards #col-img-2,
+#item-3:checked ~ .cards #col-img-3,
+#item-4:checked ~ .cards #col-img-4,
+#item-5:checked ~ .cards #col-img-5,
+#item-6:checked ~ .cards #col-img-6,
+#item-7:checked ~ .cards #col-img-7,
+#item-8:checked ~ .cards #col-img-8,
+#item-9:checked ~ .cards #col-img-9,
+#item-10:checked ~ .cards #col-img-10 {
+  transform: translateX(0) scale(1); /* Center, full size */
+  opacity: 1;
+  z-index: 1;
+}
+
+/* ============================================================= */
+/*        LEFT Neighbor - Image to the Left of Active            */
+/* ============================================================= */
+
+/* Left Side Images */
+#item-2:checked ~ .cards #col-img-1,
+#item-3:checked ~ .cards #col-img-2,
+#item-4:checked ~ .cards #col-img-3,
+#item-5:checked ~ .cards #col-img-4,
+#item-6:checked ~ .cards #col-img-5,
+#item-7:checked ~ .cards #col-img-6,
+#item-8:checked ~ .cards #col-img-7,
+#item-9:checked ~ .cards #col-img-8,
+#item-10:checked ~ .cards #col-img-9,
+#item-1:checked ~ .cards #col-img-10 {
+  transform: translateX(-40%) scale(0.8); /* move left and shrink */
+  opacity: 0.4;
+  z-index: 0;
+}
+
+/* ============================================================= */
+/*        RIGHT Neighbor - Image to the Right of Active          */
+/* ============================================================= */
+
+/* Right Side Images */
+#item-10:checked ~ .cards #col-img-1,
+#item-1:checked ~ .cards #col-img-2,
+#item-2:checked ~ .cards #col-img-3,
+#item-3:checked ~ .cards #col-img-4,
+#item-4:checked ~ .cards #col-img-5,
+#item-5:checked ~ .cards #col-img-6,
+#item-6:checked ~ .cards #col-img-7,
+#item-7:checked ~ .cards #col-img-8,
+#item-8:checked ~ .cards #col-img-9,
+#item-9:checked ~ .cards #col-img-10 {
+  transform: translateX(40%) scale(0.8); /* move right and shrink */
+  opacity: 0.4;
+  z-index: 0;
+}
+
+
+/* ============================================================= */
+/*                 QUOTE TEXT ANIMATION SECTION                  */
+/* ============================================================= */
+
+/* Moving Quote Effect (Animated Gradient Text) */
+#quote {
+  position: relative;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: 4px;
+  overflow: hidden;
+  background: linear-gradient(45deg, #fc036b, #fff, #41031d);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: animate 8s linear infinite; /* Keep moving endlessly */
+  -webkit-background-clip: text; /* Make background visible only through text */
+  -webkit-text-fill-color: rgba(255, 255, 255, 0); /* Make text itself transparent */
+}
+
+/* ============================================================= */
+/*                         KEYFRAMES                             */
+/* ============================================================= */
+
+/* Animate background movement to create flowing gradient */
+@keyframes animate {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
+
+/* ============================================================= */
+/*                         END                                   */
+/* ============================================================= */
+

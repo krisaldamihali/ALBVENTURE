@@ -1,0 +1,453 @@
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
+    text-align: center;
+    /* First background: your image; second: the gradient */
+    background: 
+      url('../img/darkMode.jpg')  no-repeat center center fixed,
+      linear-gradient(135deg, #a1a5bc, #72849e);
+    background-size: cover, cover;
+    background-blend-mode: overlay;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    scroll-behavior: smooth;
+  }
+
+  header {
+    margin-top: 80px;
+    top: 0;
+    width: 100%;
+    padding: 15px 0;
+    
+    /* glass effect: translucent white + blur behind */
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    
+    /* soft bottom border to gently separate header from content */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  
+    /* a little shadow so nav links stay legible on bright backgrounds */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-family: 'Cinzel', serif;
+    color: #fafafa;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  #stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    
+    padding: 10px 20px;
+    margin: 20px auto;
+    width: fit-content;
+    
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+
+/* Maze Container */
+#maze-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Maze Grid */
+#maze {
+  display: grid;                              
+  grid-template-columns: repeat(10, 70px);    
+  grid-template-rows:    repeat(10, 70px);        
+  gap: 4px;                                    
+  padding: 10px;
+
+  /* background-blend-mode: multiply;              */
+  background-size: cover;                      
+  opacity: 1;                                
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);       
+  background-color: rgba(0,0,0,0.1);
+  filter: opacity(100%);
+}
+  
+
+/* Maze Cells */
+.cell {
+  font-weight: bold;
+  width: 70px;
+  height: 70px;
+  position: relative;                            
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+  margin: 2px;                             
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);    
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cell:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),               
+    inset -1px -1px 3px rgba(255, 255, 255, 0.5), 
+    inset 1px 1px 3px rgba(0,0,0,0.15);     
+}
+.wall {
+    background: rgba(114, 112, 112, 0.9);  /* slightly transparent dark gray */
+}
+
+.path {
+    background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+}
+
+
+
+/* Maze Cells with transparency */
+.wall {
+    background: rgba(114, 112, 112, 0.9);  /* slightly transparent dark gray */
+  }
+  
+  .path {
+    background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+  }
+  
+  /* .city {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+  } */
+
+  .city-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  .player-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .welcome-box {
+    background: linear-gradient(135deg, #e0d8c8, #fff5e6); 
+    border: 4px solid #d4a373;
+    border-radius: 16px;
+    padding: 40px 50px;
+    width: 400px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    font-size: 23px;
+    text-align: center;
+    font-family: cursive;
+    animation: fadeInZoom 0.5s ease-out;
+    color: #ffffff;
+    opacity: 1; /* Ensure it's fully opaque */
+  }
+  /* .welcome-box h2, p{
+    color: rgb(4, 96, 4);
+    background: linear-gradient(135deg, rgba(250, 246, 235, 0.6), rgba(247, 246, 243, 0.1));
+    font-family: 'Cinzel', serif;
+    font-family: 'Lato', sans-serif;
+  }   */
+  
+/* Modal Styling (for quiz) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+/* Smooth entrance animation for the quiz box */
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.quiz-box {
+    background: linear-gradient(135deg, #fff8e7, #fffbf2);
+    border: 4px solid #ffb84d;
+    border-radius: 16px;
+    padding: 30px 40px;
+    width: 380px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    /* font-family: 'Segoe UI', sans-serif; */
+    font-family: 'Cinzel', serif;
+    /* font-family: 'Lato', sans-serif; */
+    animation: fadeInZoom 0.5s ease-out;
+}
+
+.quiz-box h2 {
+    color: #ff8800;
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+.quiz-box p {
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 23px;
+    margin-bottom: 25px;
+}
+
+.quiz-box .answer-btn {
+    background-color: #ffa94d;
+    border: none;
+    color: #fff;
+    font-style: italic;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    margin: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.quiz-box .answer-btn:hover {
+    background-color: #ff8800;
+    transform: scale(1.05);
+}
+
+.quiz-box .close-btn {
+    background-color: #2b6e20;
+    color: white;
+    font-size: 15px;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.quiz-box .close-btn:hover {
+    background-color: #10410a;
+}
+
+/* Override modal content for our quiz modal */
+.modal-content {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+/* Game Over Box Styling */
+.gameover-box {
+    background: linear-gradient(135deg, #ffe5e5, #fdd4d4);
+    border: 4px solid #e60000;
+    border-radius: 16px;
+    padding: 40px 50px;
+    width: 300px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeInZoom 0.5s ease-out;
+    color: #330000;
+}
+
+
+/* Bonus Prompt Modal Styling (More Transparent) */
+.bonus-prompt-box {
+  background: linear-gradient(135deg, rgba(255,248,231,0.6), rgba(255,251,242,0.6));
+  border: 2px solid #ffb84d;
+  border-radius: 16px;
+  padding: 30px 40px;
+  width: 380px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeInZoom 0.5s ease-out;
+  color: #333;
+}
+
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.bonus-prompt-box h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 30px; 
+  font-weight: bolder;
+}
+
+.bonus-prompt-box p {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px; 
+}
+
+/* Final Win Modal Styling (More Transparent) */
+.win-box {
+  background: linear-gradient(135deg, rgba(255,248,231,0.6), rgba(255,251,242,0.6));
+  border: 2px solid #ffb84d;
+  border-radius: 16px;
+  padding: 30px 40px;
+  width: 420px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeInZoom 0.5s ease-out;
+  color: #204020;
+}
+
+.win-box h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.win-box p {
+  font-family: 'Lato', sans-serif;
+  font-size: 25px;
+}
+
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reward-animation {
+    font-size: 62px;
+    animation: bounce 2s ease-out, shimmer 2s infinite;
+    color: #e6b800;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+.reward-animation:hover {
+  transform: scale(1.6); /* increase size on hover */
+}
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+  }
+  
+  @keyframes shimmer {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.4); }
+    100% { filter: brightness(1); }
+  }  
+
+/* Restart Button Styling */
+.restart-btn {
+    background-color: #2b6e20;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    padding: 14px 28px;
+    margin-top: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.restart-btn:hover {
+    background-color: #1f531a;
+    transform: scale(1.05);
+}
+
+/* City Info Box Styling (positioned below maze) */
+#city-info-box {
+    margin-top: 30px;
+    padding: 20px 25px;
+    width: 70%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(135deg, #fdfcfb, #e8e1d3);
+    border: 4px solid #d4a373;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+    font-weight: 500;
+    color: #5a3e36;
+    text-align: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+
+/* Utility */
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (min-height: 600px) {
+    header h1 {
+        font-size: 24px;
+    }
+    .cell {
+        font-size: 14px;
+    }
+}
+
+/* Glow effect when player is on a city cell */
+.active-city {
+  animation: glow 1.5s infinite;
+}
+
+@keyframes glow {
+  0%   { box-shadow: 0 0 5px #ffd700; }
+  50%  { box-shadow: 0 0 20px #ffd700; }
+  100% { box-shadow: 0 0 5px #ffd700; }
+}

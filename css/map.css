@@ -1,0 +1,85 @@
+
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body.bg-gray-900 {
+font-family: 'Montserrat', sans-serif;
+color: #fc036b;
+background-color: #000000;
+}
+.route-title {
+  color: #fc036b; 
+  transition: color 0.3s ease;
+}
+.route-subtitle {
+  color: #ffffff; 
+  transition: color 0.3s ease;
+}
+.calculate-btn {
+    background-color: #fc036b !important;
+}
+.calculate-btn span {
+    color: white !important;
+}
+.map-container {
+height: 450px;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 4px 12px #fc036b;
+}
+.input-container {
+position: relative;
+}
+.input-container i {
+position: absolute;
+left: 12px;
+top: 50%;
+transform: translateY(-50%);
+color: #fc036b;
+}
+.input-title {
+    color: #fc036b;
+}
+.location-input {
+padding-left: 40px !important;
+transition: all 0.3s;
+border: 1px solid #e5e7eb;
+}
+.location-input:focus {
+border-color: #fc036b;
+box-shadow: 0 0 0 2px rgba(228, 30, 38, 0.1);
+}
+.calculate-btn {
+transition: all 0.3s;
+}
+.calculate-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 12px rgba(228, 30, 38, 0.2);
+}
+.result-card {
+background: white;
+border-radius: 8px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+transition: all 0.3s;
+}
+.result-card:hover {
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+transform: translateY(-2px);
+}
+.loader {
+display: none;
+width: 30px;
+height: 30px;
+border: 3px solid #f3f3f3;
+border-top: 3px solid #E41E26;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+.switch-btn {
+transition: all 0.3s;
+}
+.switch-btn:hover {
+transform: rotate(180deg);
+}

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Albventure - Route Calculator</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#fc036b',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/map.css">
+
+</head>
+<body class="bg-gray-900">
+  <!--navbar-->
+  <nav class="navbar glass" style="height: 70px">
+    <span
+        ><a href="index.html#home" style="display: flex; align-items: center"
+            ><img
+                class="img2"
+                src="./img/logo.png"
+                width="40"
+                style="margin: -25px -10px -25px -20px"
+            />
+            <h1 class="logo">&nbsp;AlbVenture</h1></a
+        ></span
+    >
+    <ul class="nav-links">
+        <li>
+            <a href="index.html#home" id="pri" class="active cir_border">Home</a>
+        </li>
+        <li><a href="index.html#activities" id="sec" class="cir_border">Activities</a></li>
+        <li>
+            <a href="index.html#explore" id="tri" class="cir_border">Explore</a>
+        </li>
+        <li>
+            <a href="index.html#tours" id="quad" class="cir_border">Landmarks</a>
+        </li>
+        <li><a href="index.html#about" id="quint" class="cir_border">Gallery</a></li>
+        <li>
+            <a href="index.html#reviews" id="hex" class="cir_border">Reviews</a>
+        </li>
+        <li>
+            <a href="index.html#contact" id="hept" class="cir_border">Contact</a>
+        </li>
+
+        <li>
+          <button id="voiceToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+              🔊
+          </button>
+        </li>
+        
+        <!-- Speech Recognition Button -->
+        <li>
+            <button id="micToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+                🎤
+            </button>
+        </li>
+        
+        <!-- Scripts at the bottom -->
+        <script>
+          // Text-to-Speech
+          let isSpeaking = false;
+          let synth = window.speechSynthesis;
+          let utterance = null;
+        
+          document.getElementById('voiceToggle').addEventListener('click', () => {
+              if (!isSpeaking) {
+                  const text = document.body.innerText;
+                  utterance = new SpeechSynthesisUtterance(text);
+                  synth.speak(utterance);
+                  isSpeaking = true;
+              } else {
+                  synth.cancel();
+                  isSpeaking = false;
+              }
+          });
+        
+          // Speech Recognition
+          let isListening = false;
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'en-US';
+          recognition.continuous = true; // Keeps recognition active until manually stopped
+          recognition.interimResults = true; // Optional: shows interim results as user speaks
+        
+          document.getElementById('micToggle').addEventListener('click', () => {
+              if (!isListening) {
+                  // Start listening
+                  recognition.start();
+                  isListening = true;
+                  document.getElementById('micToggle').textContent = '🛑'; // Change the mic icon to stop
+              }
+          });
+        
+          recognition.onresult = function(event) {
+              const speechResult = event.results[event.results.length - 1][0].transcript.toLowerCase();
+              console.log('You said:', speechResult);
+        
+               
+              if (speechResult.includes('home')) {
+                  window.location.href = 'index.html#home';
+              } else if (speechResult.includes('activities')) {
+                  window.location.href = 'index.html#activities';
+              }else if (speechResult.includes('explore')) {
+                  window.location.href = 'index.html#explore';
+              }else if (speechResult.includes('landmarks')) {
+                  window.location.href = 'index.html#tours';
+              } else if (speechResult.includes('gallery')) {
+                  window.location.href = 'index.html#about';
+              } else if (speechResult.includes('reviews')) {
+                  window.location.href = 'index.html#reviews';
+              } else if (speechResult.includes('contact')) {
+                  window.location.href = 'index.html#contact';
+              }
+              else if (speechResult.includes('start exploring')) {
+                window.location.href = 'explore.html';
+              } 
+              else if (speechResult.includes('discover cities')) {
+                window.location.href = 'index.html#about';
+              } else if (speechResult.includes('plan a trip')) {
+              window.location.href = 'map.html';
+              } else if (speechResult.includes('play')) {
+                window.location.href = 'game.html';
+              } 
+            
+             
+              // No alert here in case of invalid input, just do nothing
+          };
+        
+          recognition.onerror = function(event) {
+              console.error('Speech recognition error', event.error);
+          };
+        
+          // Stop listening manually when user presses micToggle again
+          document.getElementById('micToggle').addEventListener('dblclick', () => {
+              recognition.stop();
+              isListening = false;
+              document.getElementById('micToggle').textContent = '🎤'; // Reset the mic icon
+          });
+        </script>
+
+
+        <li>
+            <div>
+                <input
+                    type="checkbox"
+                    class="checkbox dark"
+                    id="checkbox"
+                />
+                <label for="checkbox" class="label">
+                    <i class="fa fa-moon-o"></i>
+                    <i class="fa fa-sun-o"></i>
+                    <div class="ball"></div>
+                </label>
+            </div>
+        </li>
+    </ul>
+    <img src="./img/menu-btn.png" alt="" class="menu-btn" />
+</nav>
+<!--navbar-->
+<main class="container mx-auto px-4 py-12">
+<section class="max-w-6xl mx-auto">
+<div class="text-center mb-12">
+<h1 class="text-4xl font-bold mb-3 route-title">Route Calculator</h1>
+<p class="route-subtitle max-w-2xl mx-auto">Plan your journey across Albania with our distance and taxi fare calculator. Get accurate estimates for your travel between any two locations.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<div class="map-container" id="map" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-size: cover; background-position: center;"></div>
+</div>
+<div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+<h2 class="input-title text-xl font-semibold mb-6">Calculate Your Route</h2>
+<div class="space-y-4">
+<div class="input-container">
+<i class="ri-map-pin-line ri-lg text-gray-400"></i>
+<input type="text" id="startLocation" class="location-input w-full h-12 rounded-button focus:outline-none bg-gray-900 text-gray-200 border border-gray-700" placeholder="Starting point">
+</div>
+<div class="flex justify-center">
+<button id="switchBtn" class="switch-btn w-8 h-8 flex items-center justify-center bg-gray-900 rounded-full hover:bg-gray-700 transition">
+<i class="ri-arrow-up-down-line text-gray-400"></i>
+</button>
+</div>
+<div class="input-container">
+<i class="ri-flag-line ri-lg text-gray-400"></i>
+<input type="text" id="endLocation" class="location-input w-full h-12 rounded-button focus:outline-none bg-gray-900 text-gray-200 border border-gray-700" placeholder="Destination">
+</div>
+<button id="calculateBtn" class="calculate-btn w-full h-12 font-medium rounded-button flex items-center justify-center !rounded-button whitespace-nowrap hover:bg-primary/90 transition">
+<span>Calculate Route</span>
+<div class="loader ml-2" id="loader"></div>
+</button>
+<button id="resetBtn" class="w-full h-12 bg-gray-900 text-gray-300 font-medium rounded-button hover:bg-gray-700 transition !rounded-button whitespace-nowrap">
+Reset
+</button>
+</div>
+</div>
+</div>
+<div id="resultsContainer" class="mt-8 hidden">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="result-card p-6 bg-gray-800 border border-gray-700 rounded-lg">
+<div class="flex items-center mb-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/20 rounded-full mr-3">
+<i class="ri-route-line text-primary ri-lg"></i>
+</div>
+<h3 class="font-semibold text-white">Distance</h3>
+</div>
+<p class="text-3xl font-bold text-white" id="distanceResult">0 km</p>
+<p class="text-gray-400 text-sm mt-1">Direct distance between locations</p>
+</div>
+<div class="result-card p-6">
+<div class="flex items-center mb-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-3">
+<i class="ri-time-line text-primary ri-lg"></i>
+</div>
+<h3 class="font-semibold">Travel Time</h3>
+</div>
+<p class="text-3xl font-bold" id="timeResult">0 min</p>
+<p class="text-gray-500 text-sm mt-1">Estimated driving time</p>
+</div>
+<div class="result-card p-6">
+<div class="flex items-center mb-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mr-3">
+<i class="ri-taxi-line text-primary ri-lg"></i>
+</div>
+<h3 class="font-semibold">Taxi Fare</h3>
+</div>
+<p class="text-3xl font-bold" id="fareResult">0 ALL</p>
+<p class="text-gray-500 text-sm mt-1">Estimated price range</p>
+</div>
+</div>
+<div class="result-card p-6 mt-6 bg-gray-800 border border-gray-700 rounded-lg">
+<h3 class="font-semibold text-lg mb-4 text-white">Fare Breakdown</h3>
+<div class="space-y-3">
+<div class="flex justify-between">
+<span class="text-gray-400">Base fare</span>
+<span class="font-medium text-gray-200" id="baseFare">300 ALL</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-400">Distance charge</span>
+<span class="font-medium text-gray-200" id="distanceCharge">0 ALL</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-400">Rate per km</span>
+<span class="font-medium text-gray-200">150 ALL</span>
+</div>
+<div class="border-t border-gray-700 pt-3 flex justify-between">
+<span class="font-semibold text-white">Total estimated fare</span>
+<span class="font-bold text-primary" id="totalFare">300 ALL</span>
+</div>
+<div class="flex justify-between text-sm text-gray-500">
+<span>Price range</span>
+<span id="priceRange">270-330 ALL</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-4xl mx-auto mt-16">
+<div class="bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700">
+<h2 class="text-2xl font-bold mb-4 text-white">About Our Taxi Fare Calculator</h2>
+<p class="text-gray-400 mb-4">Our calculator provides estimates based on standard taxi rates in Albania. Actual fares may vary depending on traffic conditions, time of day, and the specific taxi service used.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<div>
+<h3 class="font-semibold text-lg mb-3">How We Calculate</h3>
+<ul class="space-y-2 text-gray-600">
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span>Base fare: 300 ALL for any journey</span>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span>Distance rate: 150 ALL per kilometer</span>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span>Night surcharge: +20% between 10 PM and 6 AM</span>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span>Price range: ±10% to account for variations</span>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="font-semibold text-lg mb-3">Popular Routes</h3>
+<ul class="space-y-2 text-gray-600">
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-route-line text-primary"></i>
+</div>
+<span>Tirana to Durrës: ~40 km (approx. 6,300 ALL)</span>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-route-line text-primary"></i>
+</div>
+<span>Tirana to Shkodër: ~95 km (approx. 14,550 ALL)</span>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-route-line text-primary"></i>
+</div>
+<span>Vlorë to Sarandë: ~125 km (approx. 19,050 ALL)</span>
+</li>
+<li class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-route-line text-primary"></i>
+</div>
+<span>Tirana to Vlorë: ~150 km (approx. 22,800 ALL)</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-gray-900 text-white mt-20">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<h3 class="text-xl font-['Pacifico'] mb-4">Albventure</h3>
+<p class="text-gray-400 mb-4">Discover the hidden gems of Albania with our personalized travel services and expert local guides.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition">
+<i class="ri-twitter-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition">Home</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Destinations</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Tours</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Route Calculator</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Popular Destinations</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition">Tirana</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Durrës</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Vlorë</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Sarandë</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition">Shkodër</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+<ul class="space-y-3">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-map-pin-line text-primary"></i>
+</div>
+<span class="text-gray-400">Rruga Myslym Shyri, Tirana 1001, Albania</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-phone-line text-primary"></i>
+</div>
+<span class="text-gray-400">+355 69 123 4567</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-2">
+<i class="ri-mail-line text-primary"></i>
+</div>
+<span class="text-gray-400">info@albventure.com</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Albventure. All rights reserved.</p>
+<div class="flex space-x-6">
+<a href="#" class="text-gray-500 text-sm hover:text-white transition">Privacy Policy</a>
+<a href="#" class="text-gray-500 text-sm hover:text-white transition">Terms of Service</a>
+<a href="#" class="text-gray-500 text-sm hover:text-white transition">Cookie Policy</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script src="js/map.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/script.js" defer></script>
+
+</body>
+</html>

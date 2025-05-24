@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap">
+  <title>Explore Albania: Maze Adventure</title>
+
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+ 
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+
+</head>
+<body class="game-page">
+  <header class="game-header">
+    <h1>ALBVENTURE - THE RIDDLE RUN</h1>
+  </header>
+
+  <!--navbar-->
+  <nav class="navbar glass" style="height: 70px">
+    <span
+        ><a href="index.html#home" style="display: flex; align-items: center"
+            ><img
+                class="img2"
+                src="./img/logo.png"
+                width="40"
+                style="margin: -25px -10px -25px -20px"
+            />
+            <h1 class="logo">&nbsp;AlbVenture</h1></a
+        ></span
+    >
+    <ul class="nav-links">
+        <li>
+            <a href="index.html#home" id="pri" class="active cir_border">Home</a>
+        </li>
+        <li><a href="index.html#activities" id="sec" class="cir_border">Activities</a></li>
+        <li>
+            <a href="index.html#explore" id="tri" class="cir_border">Explore</a>
+        </li>
+        <li>
+            <a href="index.html#tours" id="quad" class="cir_border">Landmarks</a>
+        </li>
+        <li><a href="index.html#about" id="quint" class="cir_border">Gallery</a></li>
+        <li>
+            <a href="index.html#reviews" id="hex" class="cir_border">Reviews</a>
+        </li>
+        <li>
+            <a href="index.html#contact" id="hept" class="cir_border">Contact</a>
+        </li>
+
+        <li>
+          <button id="voiceToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+              🔊
+          </button>
+        </li>
+        
+        <!-- Speech Recognition Button -->
+        <li>
+            <button id="micToggle" style="background:none; border:none; cursor:pointer; font-size:28px;">
+                🎤
+            </button>
+        </li>
+        
+        <!-- Scripts at the bottom -->
+        <script>
+          // Text-to-Speech
+          let isSpeaking = false;
+          let synth = window.speechSynthesis;
+          let utterance = null;
+        
+          document.getElementById('voiceToggle').addEventListener('click', () => {
+              if (!isSpeaking) {
+                  const text = document.body.innerText;
+                  utterance = new SpeechSynthesisUtterance(text);
+                  synth.speak(utterance);
+                  isSpeaking = true;
+              } else {
+                  synth.cancel();
+                  isSpeaking = false;
+              }
+          });
+        
+          // Speech Recognition
+          let isListening = false;
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'en-US';
+          recognition.continuous = true; // Keeps recognition active until manually stopped
+          recognition.interimResults = true; // Optional: shows interim results as user speaks
+        
+          document.getElementById('micToggle').addEventListener('click', () => {
+              if (!isListening) {
+                  // Start listening
+                  recognition.start();
+                  isListening = true;
+                  document.getElementById('micToggle').textContent = '🛑'; // Change the mic icon to stop
+              }
+          });
+        
+          recognition.onresult = function(event) {
+              const speechResult = event.results[event.results.length - 1][0].transcript.toLowerCase();
+              console.log('You said:', speechResult);
+        
+               
+              if (speechResult.includes('home')) {
+                  window.location.href = 'index.html#home';
+              } else if (speechResult.includes('activities')) {
+                  window.location.href = 'index.html#activities';
+              }else if (speechResult.includes('explore')) {
+                  window.location.href = 'index.html#explore';
+              }else if (speechResult.includes('landmarks')) {
+                  window.location.href = 'index.html#tours';
+              } else if (speechResult.includes('gallery')) {
+                  window.location.href = 'index.html#about';
+              } else if (speechResult.includes('reviews')) {
+                  window.location.href = 'index.html#reviews';
+              } else if (speechResult.includes('contact')) {
+                  window.location.href = 'index.html#contact';
+              }
+              else if (speechResult.includes('start exploring')) {
+                window.location.href = 'explore.html';
+              } 
+              else if (speechResult.includes('discover cities')) {
+                window.location.href = 'index.html#about';
+              } else if (speechResult.includes('plan a trip')) {
+              window.location.href = 'map.html';
+              } else if (speechResult.includes('play')) {
+                window.location.href = 'game.html';
+              } 
+            
+             
+              // No alert here in case of invalid input, just do nothing
+          };
+        
+          recognition.onerror = function(event) {
+              console.error('Speech recognition error', event.error);
+          };
+        
+          // Stop listening manually when user presses micToggle again
+          document.getElementById('micToggle').addEventListener('dblclick', () => {
+              recognition.stop();
+              isListening = false;
+              document.getElementById('micToggle').textContent = '🎤'; // Reset the mic icon
+          });
+        </script>
+
+
+        <li>
+            <div>
+                <input
+                    type="checkbox"
+                    class="checkbox dark"
+                    id="checkbox"
+                />
+                <label for="checkbox" class="label">
+                    <i class="fa fa-moon-o"></i>
+                    <i class="fa fa-sun-o"></i>
+                    <div class="ball"></div>
+                </label>
+            </div>
+        </li>
+    </ul>
+    <img src="./img/menu-btn.png" alt="" class="menu-btn" />
+</nav>
+<!--navbar-->
+
+  <!-- Game Stats Box -->
+  <div id="stats" class="game-stats">
+    <p>Lives: <span id="lives">❤️❤️❤️</span></p>
+    <p>Visited Cities: <span id="visited">0</span>/10</p>
+  </div>
+
+  <!-- Maze Container -->
+  <div id="maze-container">
+    <div id="maze"></div>
+  </div>
+
+  <!-- City Info Box (for fun facts and messages; appears below maze) -->
+  <div id="city-info-box" class="hidden"></div>
+
+  <!-- Quiz Modal with Smooth Entrance Animation -->
+  <div id="quiz-modal" class="modal hidden">
+    <div class="modal-content quiz-box">
+      <h2 id="quiz-title">Quiz Time!</h2>
+      <p id="quiz-question"></p>
+      <div id="quiz-options"></div>
+      <button id="closeQuizBtn" class="close-btn">Close</button>
+    </div>
+  </div>
+
+  <!-- Welcome Modal -->
+  <div id="welcome-modal" class="modal hidden">
+    <div class="modal-content welcome-box">
+      <h2>Welcome, Explorer!</h2>
+      <p>Get ready to embark on an adventure through Albania!</p>
+      <button id="startGameBtn" class="restart-btn">Start Game</button>
+    </div>
+  </div>  
+
+  <!-- Game Over Modal -->
+<div id="gameover-modal" class="modal hidden">
+  <div class="modal-content gameover-box">
+    <h2>Game Over</h2>
+    <p>You have lost all your lives.</p>
+    <button id="restartBtn" class="restart-btn">Restart Game</button>
+  </div>
+</div>
+
+<!-- Bonus Prompt Modal -->
+<div id="bonus-prompt-modal" class="modal hidden">
+  <div class="modal-content bonus-prompt-box">
+    <h2><strong>Hidden Destination Unlocked!</strong></h2>
+    <p>🌟 Well done, adventurer! You've reached all 10 ports. <br>
+      🗺️ But wait-what's this?! A hidden destination appears... <br>
+      📍 Journey there to claim your rightful reward!</p>
+    <button id="bonusContinueBtn" class="restart-btn">Continue Exploring</button>
+  </div>
+</div>
+
+<!-- Final Win Modal -->
+<div id="final-win-modal" class="modal hidden">
+  <div class="modal-content win-box">
+    <h2><strong>Congratulations, Explorer!</strong></h2>
+    <p>Albania's best-kept secret is yours! Adventure complete, legend unlocked!</p>
+    <div id="reward"></div>
+    <button id="finalWinRestartBtn" class="restart-btn">Restart Game</button>
+  </div>
+</div>
+
+
+  
+  <script src="js/game.js"></script>
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/script.js"></script>
+
+
+</body>
+</html>  
