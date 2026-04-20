@@ -41,4 +41,4 @@ The site uses standard web technologies to present an interactive map and destin
 
 ## Notes
 
-This is a static web project that can be run locally without a backend server. For best results, open the HTML files in a modern browser such as Chrome, Firefox, or Edge.
+This is a static web project that can be run locally without a backend server. For best results, open the HTML files in a modern browser such as Chrome, Firefox,or Edge.
